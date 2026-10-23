@@ -98,25 +98,50 @@ document.querySelectorAll("#nav-cta-btn, [data-open-contact]").forEach((button) 
 
 const copyEmailBtn = document.getElementById("copy-email-btn");
 if (copyEmailBtn) {
-  copyEmailBtn.addEventListener("click", async () => {
-    const email = copyEmailBtn.dataset.email || "teambytant@gmail.com";
+  let feedbackTimer;
+  const status = document.createElement('span');
+  status.className = 'copy-email-status';
+  status.setAttribute('role', 'status');
+  status.setAttribute('aria-live', 'polite');
+  copyEmailBtn.insertAdjacentElement('afterend', status);
+  copyEmailBtn.addEventListener('click', async () => {
+    const email = copyEmailBtn.dataset.email || 'teambytant@gmail.com';
+    clearTimeout(feedbackTimer);
+    copyEmailBtn.disabled = true;
+    copyEmailBtn.textContent = 'Copying...';
+    status.textContent = '';
     try {
       if (navigator.clipboard && window.isSecureContext) {
         await navigator.clipboard.writeText(email);
       } else {
-        const input = document.createElement("input");
+        const input = document.createElement('input');
         input.value = email;
-        input.setAttribute("readonly", "");
-        input.style.position = "fixed";
-        input.style.opacity = "0";
-        document.body.appendChild(input);
-        input.select();
-        document.execCommand("copy");
-        input.remove();
+        input.setAttribute('readonly', '');
+        input.style.position = 'fixed';
+        input.style.opacity = '0';
+        copyEmailBtn.parentElement.appendChild(input);
+        try {
+          input.select();
+          if (!document.execCommand('copy')) throw new Error('Copy failed');
+        } finally {
+          input.remove();
+          copyEmailBtn.focus();
+        }
       }
-      showToast("Email copied: teambytant@gmail.com");
+      copyEmailBtn.textContent = 'Copied!';
+      copyEmailBtn.classList.add('is-copied');
+      status.textContent = 'Email copied to clipboard.';
     } catch (error) {
-      showToast("Copy failed — teambytant@gmail.com");
+      copyEmailBtn.textContent = 'Try again';
+      copyEmailBtn.classList.remove('is-copied');
+      status.textContent = `Could not copy. Please select ${email} and copy it manually.`;
+    } finally {
+      copyEmailBtn.disabled = false;
+      feedbackTimer = window.setTimeout(() => {
+        copyEmailBtn.textContent = 'Copy email';
+        copyEmailBtn.classList.remove('is-copied');
+        status.textContent = '';
+      }, 4000);
     }
   });
 }

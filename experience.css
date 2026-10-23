@@ -943,3 +943,7 @@ body.service-detail-open { overflow: hidden; }
 .experience .project-empty { padding: 40px 24px; margin: 28px auto 0; max-width: 700px; border: 1px solid #ffffff80; border-radius: 20px; background: #ffffff40; color: #75617f; font-size: 15px; }
 .project-empty button { padding: 0; border: 0; background: transparent; color: #6d28f0; text-decoration: underline; font: inherit; cursor: pointer; }
 @media(max-width: 560px) { .project-filters { gap: 8px; } .project-filters button { padding: 10px 13px; font-size: 11px; } }
+
+.quick-contact #copy-email-btn.is-copied { color: #326a50; background: #e3f2e9; border-color: #9bc6ad; }
+.copy-email-status { flex-basis: 100%; color: #655570; font-size: 11px; line-height: 1.6; }
+.copy-email-status:empty { display: none; }
