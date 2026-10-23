@@ -244,7 +244,7 @@
 .builder-origins h3:nth-child(2) { color: #b69aff; }.builder-origins h3:nth-child(3) { color: #c3ff7e; }
 .builder-signoff { color: var(--muted); font-size: 13px; margin: 24px 0 0; letter-spacing: .04em; }
 .ghana-divider { width: 100%; height: clamp(150px, 22vw, 320px); position: relative; overflow: hidden; margin: -25px 0 0; pointer-events: none; }
-.ghana-ribbon { position: absolute; width: 104%; height: 100%; left: -2%; top: 0; overflow: visible; filter: drop-shadow(0 12px 16px #00000055); }
+.ghana-ribbon { position: absolute; width: 104%; height: 100%; left: -2%; top: 0; overflow: visible; filter: none; }
 .ghana-ribbon-fabric { animation: ghana-wave 7s ease-in-out infinite; transform-origin: center; }
 .experience .ghana-divider + .about-section { border-top: 0; padding-top: 65px; }
 @keyframes ghana-wave { 0%, 100% { transform: translateY(-3px) rotate(-.4deg); } 50% { transform: translateY(3px) rotate(.4deg); } }
